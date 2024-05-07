@@ -4,6 +4,7 @@ import requests
 from PIL import Image
 import dotenv
 import json
+import uuid
 
 # import dotenv
 dotenv.load_dotenv()
@@ -22,10 +23,11 @@ model = os.environ['AZURE_OPENAI_IMAGEGEN_DEPLOYMENT']
 
 try:
     # Create an image by using the image generation API
-
+    #prompt = "A bunny on a horse, holding a lollipop, on a foggy meadow where daffodils grow. The bunny says 'hello'."  # Enter your prompt text here
+    prompt = "lady of age around 30, celebrating birthday of her daughter with family inside house"  # Enter your prompt text here
     result = client.images.generate(
         model=model,
-        prompt='Bunny on horse, holding a lollipop, on a foggy meadow where it grows daffodils. It says "hello"',    # Enter your prompt text here
+        prompt=prompt,
         size='1024x1024',
         n=1
     )
@@ -39,7 +41,11 @@ try:
         os.mkdir(image_dir)
 
     # Initialize the image path (note the filetype should be png)
-    image_path = os.path.join(image_dir, 'generated-image.png')
+    #image_path = os.path.join(image_dir, 'generated-image.png')
+    
+    # Generate a unique filename
+    filename = f'vaibhav_{uuid.uuid4()}.png'
+    image_path = os.path.join(image_dir, filename)
 
     # Retrieve the generated image
     image_url = generation_response["data"][0]["url"]  # extract image URL from response
