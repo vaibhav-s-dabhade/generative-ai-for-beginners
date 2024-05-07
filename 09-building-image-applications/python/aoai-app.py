@@ -17,7 +17,7 @@ client = AzureOpenAI(
   azure_endpoint=os.environ['AZURE_OPENAI_ENDPOINT'] 
   )
 
-model = os.environ['AZURE_OPENAI_DEPLOYMENT']
+model = os.environ['AZURE_OPENAI_IMAGEGEN_DEPLOYMENT']
 
 
 try:
@@ -60,9 +60,9 @@ finally:
 # ---creating variation below---
 
 
-response = client.Image.create_variation(
-  image=open(image_path, "rb"),
-  n=1,
-  size="1024x1024"
-)
+# response = client.Image.create_variation(
+#   image=open(image_path, "rb"),
+#   n=1,
+#   size="1024x1024"
+# )
 
