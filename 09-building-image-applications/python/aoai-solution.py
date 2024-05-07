@@ -4,6 +4,7 @@ import requests
 from PIL import Image
 import dotenv
 import json
+import uuid
 
 # import dotenv
 dotenv.load_dotenv()
@@ -17,7 +18,7 @@ client = AzureOpenAI(
   azure_endpoint=os.environ['AZURE_OPENAI_ENDPOINT'] 
   )
 
-model = os.environ['AZURE_OPENAI_DEPLOYMENT']
+model = os.environ['AZURE_OPENAI_IMAGEGEN_DEPLOYMENT']
 
 disallow_list = "swords, violence, blood, gore, nudity, sexual content, adult content, adult themes, adult language, adult humor, adult jokes, adult situations, adult"
 
@@ -58,7 +59,11 @@ try:
         os.mkdir(image_dir)
 
     # Initialize the image path (note the filetype should be png)
-    image_path = os.path.join(image_dir, 'ch9-sol-generated-image.png')
+    #image_path = os.path.join(image_dir, 'ch9-sol-generated-image.png')
+
+    # Generate a unique filename
+    filename = f'vaibhav_restricted_{uuid.uuid4()}.png'
+    image_path = os.path.join(image_dir, filename)
 
     # Retrieve the generated image
     image_url = generation_response["data"][0]["url"]  # extract image URL from response
